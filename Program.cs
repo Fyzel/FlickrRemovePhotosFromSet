@@ -1,5 +1,5 @@
 ﻿#region License
-// <copyright file="Program.cs" company="Michael R. Schwab">
+// <copyright file="Options.cs" company="Michael R. Schwab">
 //   Copyright 2017
 // </copyright>
 //
@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using CommandLine;
 using FlickrNet;
 
 namespace FlickrRemovePhotosFromSet
@@ -17,22 +18,22 @@ namespace FlickrRemovePhotosFromSet
         static int Main(string[] args)
         {
             string assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-            
-            var options = new Options();
 
-            if (CommandLine.Parser.Default.ParseArgumentsStrict(args, options))
-            {
-                var flickrConfig = new FlickrConfiguration
+            var flickrConfig = new FlickrConfiguration();
+
+            var results = Parser.Default.ParseArguments<Options>(args)
+                .WithParsed(o =>
                 {
-                    ApiKey = options.ApiKey,
-                    ApiSecret = options.ApiSecret,
-                    SourcePhotoSetIdToKeep = options.SourceSetId,
-                    TargetPhotoSetIdForRemoval = options.TargetSetId,
-                    Verbose = options.Verbose
-                };
+                    flickrConfig.ApiKey = o.ApiKey;
+                    flickrConfig.ApiSecret = o.ApiSecret;
+                    flickrConfig.SourcePhotoSetIdToKeep = o.SourceSetId;
+                    flickrConfig.TargetPhotoSetIdForRemoval = o.TargetSetId;
+                    flickrConfig.Verbose = o.Verbose;
+                }
+            );
 
-                RemovePhotosFromSet(flickrConfig);
-            }
+            RemovePhotosFromSet(flickrConfig);
+
             return 0;
         }
 
@@ -53,9 +54,11 @@ namespace FlickrRemovePhotosFromSet
         /// <param name="flickrConfig">Flickr configuration for remote calls</param>
         private static void RemovePhotosFromSet(FlickrConfiguration flickrConfig)
         {
-            Flickr flickr = new Flickr();
-            flickr.ApiKey = flickrConfig.ApiKey;
-            flickr.ApiSecret = flickrConfig.ApiSecret;
+            Flickr flickr = new()
+            {
+                ApiKey = flickrConfig.ApiKey,
+                ApiSecret = flickrConfig.ApiSecret
+            };
 
             // set the callback to oob for user authorization
             OAuthRequestToken oauthRequesToken = flickr.OAuthGetRequestToken("oob");
@@ -70,13 +73,13 @@ namespace FlickrRemovePhotosFromSet
 
             // get the source photos
             List<string> sourceSetPhotoIDList = GetAllPhotoIDsFromSet(flickr, flickrConfig.SourcePhotoSetIdToKeep, flickrConfig.Verbose);
-            List<string> photosToBeRemoved = new List<string>();
+            List<string> photosToBeRemoved = new();
             Photoset targetPhotoSetInfo = GetPhotoSet(flickr, flickrConfig.TargetPhotoSetIdForRemoval);
 
-            List<List<string>> photoGroupsToBeRemoved = new List<List<string>>();
-
-
-            photoGroupsToBeRemoved.Add(sourceSetPhotoIDList);
+            List<List<string>> photoGroupsToBeRemoved = new()
+            {
+                sourceSetPhotoIDList
+            };
 
             foreach (List<string> photoList in photoGroupsToBeRemoved)
             {
@@ -116,7 +119,7 @@ namespace FlickrRemovePhotosFromSet
         /// <returns>list of image identifiers in photoset</returns>
         private static List<string> GetAllPhotoIDsFromSet(Flickr flickrContext, string photoSetId, bool verbose)
         {
-            List<string> output = new List<string>();
+            List<string> output = new();
 
             Photoset photoSetInfo = GetPhotoSet(flickrContext, photoSetId);
             int perPage = 500;

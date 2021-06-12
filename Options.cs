@@ -6,6 +6,7 @@
 // License: https://www.gnu.org/licenses/gpl.html
 #endregion
 
+using System.Collections.Generic;
 using CommandLine;
 using CommandLine.Text;
 
@@ -28,10 +29,14 @@ namespace FlickrRemovePhotosFromSet
         [Option('v', "verbose", Required = false, HelpText = "verbose")]
         public bool Verbose { get; set; }
 
-        [HelpOption]
-        public string GetUsage()
+        [Usage(ApplicationAlias = "FlickrRemovePhotosFromSet")]
+        public static IEnumerable<Example> Examples
         {
-            return HelpText.AutoBuild(this, current => HelpText.DefaultParsingErrorsHandler(this, current));
+            get
+            {
+                yield return new Example("Verbose Usage", new Options { ApiKey = "[api-key]", ApiSecret = "[api-secret]", SourceSetId = "72157698344344474", TargetSetId = "72157650408948124", Verbose = true });
+                yield return new Example("Non-Verbose Usage", new Options { ApiKey = "[api-key]", ApiSecret = "[api-secret]", SourceSetId = "72157698344344474", TargetSetId = "72157650408948124", Verbose = false });
+            }
         }
     }
 }
