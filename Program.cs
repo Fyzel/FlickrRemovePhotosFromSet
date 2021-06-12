@@ -1,5 +1,5 @@
 ﻿#region License
-// <copyright file="Options.cs" company="Michael R. Schwab">
+// <copyright file="Program.cs" company="Michael R. Schwab">
 //   Copyright 2017
 // </copyright>
 //
