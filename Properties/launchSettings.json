@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FlickrRemovePhotosFromSet": {
+      "commandName": "Project",
+      "commandLineArgs": "-v -k fa5436afb3945633a9dfe3ca8f4fc3e9 -a 0d5e444eb26c371b -t 72157637229004366 -s 72177720297326263"
+    }
+  }
+}

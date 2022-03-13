@@ -2,20 +2,39 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
+<UseWindowsForms>true</UseWindowsForms>
     <StartupObject>FlickrRemovePhotosFromSet.Program</StartupObject>
     <Version>1.1.0</Version>
     <RepositoryUrl>https://github.com/Fyzel/FlickrRemovePhotosFromSet</RepositoryUrl>
     <PackageLicenseExpression>https://github.com/Fyzel/FlickrRemovePhotosFromSet/blob/master/LICENSE</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Fyzel/FlickrRemovePhotosFromSet</PackageProjectUrl>
+    <ApplicationIcon>images\flickr-favicon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <Content Include="images\flickr-favicon.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\flickr-net\FlickrNet\FlickrNet.csproj" />
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="FlickrNet" Version="3.26.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

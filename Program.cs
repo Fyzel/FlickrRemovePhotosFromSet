@@ -1,6 +1,6 @@
 ﻿#region License
 // <copyright file="Program.cs" company="Michael R. Schwab">
-//   Copyright 2017
+//   Copyright 2022
 // </copyright>
 //
 // License: https://www.gnu.org/licenses/gpl.html
@@ -8,6 +8,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Windows.Forms;
 using CommandLine;
 using FlickrNet;
 
@@ -65,7 +67,22 @@ namespace FlickrRemovePhotosFromSet
             Console.Clear();
             string authorizationURL = flickr.OAuthCalculateAuthorizationUrl(oauthRequesToken.Token, AuthLevel.Write);
             Console.WriteLine($"Go to {authorizationURL} and copy the code");
-            System.Diagnostics.Process.Start(authorizationURL);
+            try
+            {
+                Process.Start(new ProcessStartInfo(authorizationURL) { UseShellExecute = true });
+            }
+            catch (System.ComponentModel.Win32Exception noBrowser)
+            {
+                if (noBrowser.ErrorCode == -2147467259)
+                {
+                    MessageBox.Show(noBrowser.Message);
+                }
+            }
+            catch (System.Exception other)
+            {
+                MessageBox.Show(other.Message);
+            }
+
             string verifier = Console.ReadLine();
             Console.Clear();
 
@@ -123,7 +140,7 @@ namespace FlickrRemovePhotosFromSet
 
             Photoset photoSetInfo = GetPhotoSet(flickrContext, photoSetId);
             int perPage = 500;
-            int totalPageCount = photoSetInfo.TotalNumberOfPhotosAndVideos / perPage + 1;
+            int totalPageCount = photoSetInfo.Total / perPage + 1;
 
             for (int currentPage = 1; currentPage < totalPageCount + 1; currentPage++)
             {

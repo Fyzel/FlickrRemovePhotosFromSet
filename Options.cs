@@ -1,6 +1,6 @@
 ﻿#region License
 // <copyright file="Options.cs" company="Michael R. Schwab">
-//   Copyright 2017
+//   Copyright 2022
 // </copyright>
 //
 // License: https://www.gnu.org/licenses/gpl.html
