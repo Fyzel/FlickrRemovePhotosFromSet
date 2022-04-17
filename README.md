@@ -1,5 +1,7 @@
 # FlickrRemovePhotosFromSet
 
+This is a command line utility to remove photos that are in one photoset from another.
+
 Example batch file to remove photos from the *Auto Upload* photoset that appear in the given photoset ID.
 
 ```Batchfile
