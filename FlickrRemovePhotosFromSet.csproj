@@ -93,7 +93,6 @@
     <Content Include=".gitattributes" />
     <Content Include=".gitignore" />
     <Content Include="flickr-favicon.ico" />
-    <Content Include="images\flickr-favicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
