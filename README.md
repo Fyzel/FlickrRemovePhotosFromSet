@@ -11,3 +11,5 @@ shift
 
 FlickrRemovePhotosFromSet.exe -v -k [api-key] -a [api-secret] -t [Auto Upload Photoset ID] -s %arg1%
 ```
+
+Licensed under [GNU Lesser General Public License v3.0](https://github.com/Fyzel/FlickrRemovePhotosFromSet/blob/master/LICENSE).

@@ -3,7 +3,7 @@
 //   Copyright 2022
 // </copyright>
 //
-// License: https://www.gnu.org/licenses/gpl.html
+// License: https://github.com/Fyzel/FlickrRemovePhotosFromSet/blob/master/LICENSE
 #endregion
 
 using System.Collections.Generic;
