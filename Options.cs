@@ -34,8 +34,24 @@ namespace FlickrRemovePhotosFromSet
         {
             get
             {
-                yield return new Example("Verbose Usage", new Options { ApiKey = "[api-key]", ApiSecret = "[api-secret]", SourceSetId = "72157698344344474", TargetSetId = "72157650408948124", Verbose = true });
-                yield return new Example("Non-Verbose Usage", new Options { ApiKey = "[api-key]", ApiSecret = "[api-secret]", SourceSetId = "72157698344344474", TargetSetId = "72157650408948124", Verbose = false });
+                yield return new Example("Verbose Usage",
+                                         new Options
+                                         {
+                                             ApiKey = "[api-key]",
+                                             ApiSecret = "[api-secret]",
+                                             SourceSetId = "72157698344344474",
+                                             TargetSetId = "72157650408948124",
+                                             Verbose = true
+                                         });
+                yield return new Example("Non-Verbose Usage",
+                                        new Options
+                                        {
+                                            ApiKey = "[api-key]",
+                                            ApiSecret = "[api-secret]",
+                                            SourceSetId = "72157698344344474",
+                                            TargetSetId = "72157650408948124",
+                                            Verbose = false
+                                        });
             }
         }
     }
